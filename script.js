@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     searchInput.addEventListener('input', applyFilters);
   }
 
-  // Simple form handler (contact.html)
+  // Simple form handler (contact us.html)
   const form = document.querySelector('.quote-form');
   if (form) {
     form.addEventListener('submit', (e) => {
@@ -104,20 +104,63 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ACCORDION FAQ
+  const faqQuestions = document.querySelectorAll('.faq-q');
+  if (faqQuestions.length) {
+    faqQuestions.forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.parentElement;
+        document.querySelectorAll('.faq-item').forEach(otherItem => {
+          if (otherItem !== item) otherItem.classList.remove('active');
+        });
+        item.classList.toggle('active');
+      });
+    });
+  }
+
   // ==========================================
-  // IMAGE MODAL (LIGHTBOX) FOR PRODUCT PAGE
+  // INQUIRY CART SYSTEM (LocalStorage & Modal)
   // ==========================================
+  let inquiryList = JSON.parse(localStorage.getItem('inquiryList')) || [];
+  const navCartCount = document.getElementById('navCartCount');
+  let currentModalItem = null;
+
+  function updateCartCounter() {
+    if (navCartCount) {
+      navCartCount.textContent = inquiryList.length;
+      if (inquiryList.length > 0) {
+        navCartCount.style.display = 'flex';
+      } else {
+        navCartCount.style.display = 'none';
+      }
+    }
+  }
+
+  // IMAGE MODAL (LIGHTBOX) WITH ADD BUTTON
   const modal = document.getElementById("imageModal");
   const modalImg = document.getElementById("modalImg");
   const modalClose = document.querySelector(".modal-close");
+  const modalAddBtn = document.getElementById("modalAddBtn");
   const productImages = document.querySelectorAll('.cat-tile .ph-image img');
 
   if (productImages.length && modal) {
     productImages.forEach(img => {
       img.style.cursor = 'pointer'; 
       img.addEventListener('click', () => {
+        const tile = img.closest('.cat-tile');
+        currentModalItem = tile.getAttribute('data-name');
+        
         modal.style.display = "block";
         modalImg.src = img.src;
+        
+        // Update modal button state based on if it's already in the cart
+        if (inquiryList.includes(currentModalItem)) {
+          modalAddBtn.textContent = '✓ Added to List';
+          modalAddBtn.classList.add('added');
+        } else {
+          modalAddBtn.textContent = '+ Add to Inquiry';
+          modalAddBtn.classList.remove('added');
+        }
       });
     });
   }
@@ -136,21 +179,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ==========================================
-  // ACCORDION FAQ
-  // ==========================================
-  const faqQuestions = document.querySelectorAll('.faq-q');
-  if (faqQuestions.length) {
-    faqQuestions.forEach(q => {
-      q.addEventListener('click', () => {
-        const item = q.parentElement;
-        // Close all other items
-        document.querySelectorAll('.faq-item').forEach(otherItem => {
-          if (otherItem !== item) otherItem.classList.remove('active');
-        });
-        // Toggle current item
-        item.classList.toggle('active');
-      });
+  // Handle "Add to Inquiry" click inside the Modal
+  if (modalAddBtn) {
+    modalAddBtn.addEventListener('click', () => {
+      if (currentModalItem) {
+        if (!inquiryList.includes(currentModalItem)) {
+          inquiryList.push(currentModalItem);
+          localStorage.setItem('inquiryList', JSON.stringify(inquiryList));
+          modalAddBtn.textContent = '✓ Added to List';
+          modalAddBtn.classList.add('added');
+        } else {
+          // Toggle (remove) if already added
+          inquiryList = inquiryList.filter(item => item !== currentModalItem);
+          localStorage.setItem('inquiryList', JSON.stringify(inquiryList));
+          modalAddBtn.textContent = '+ Add to Inquiry';
+          modalAddBtn.classList.remove('added');
+        }
+        updateCartCounter();
+      }
     });
   }
+
+  // Initialize counter on load
+  updateCartCounter();
+
+  // On Contact Page: Populate Textarea with selected items
+  const needTextarea = document.getElementById('need');
+  if (needTextarea && inquiryList.length > 0) {
+    let formText = "I would like to inquire about the following items:\n\n";
+    inquiryList.forEach(item => {
+      formText += `- ${item}\n`;
+    });
+    formText += "\nPlease provide pricing and availability. Thank you.";
+    needTextarea.value = formText;
+  }
+
 });

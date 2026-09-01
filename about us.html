@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About — L.G. Harris & Co. (E.A.) Ltd</title>
+<title>About Us — L.G. Harris & Co. (E.A.) Ltd</title>
 <meta name="description" content="Who L.G. Harris & Co. (E.A.) Ltd is and how we supply wholesale cleaning and industrial supplies across Kenya.">
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -11,7 +11,7 @@
 
 <header class="site-nav">
   <div class="nav-inner">
-        <a href="index.html" class="logo">
+    <a href="index.html" class="logo">
       <span class="logo-main">L.G. Harris &amp; Co. (E.A.) Ltd</span>
       <span class="logo-sub">Nairobi, Kenya · Wholesale Supplier</span>
     </a>
@@ -19,18 +19,24 @@
       <a href="index.html">Home</a>
       <a href="about us.html" aria-current="page">About Us</a>
       <a href="product.html">Product</a>
-      <a href="contact.html">Contact</a>
+      <a href="contact us.html">Contact Us</a>
     </nav>
-    <a href="contact.html" class="nav-cta">Request Quote</a>
+    <div class="nav-actions">
+      <a href="contact us.html" class="nav-cart" title="View Inquiry List">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+        <span id="navCartCount">0</span>
+      </a>
+      <a href="contact us.html" class="nav-cta">Request Quote</a>
+    </div>
     <button class="hamburger" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </button>
   </div>
   <div class="mobile-panel">
     <a href="index.html">Home</a>
-    <a href="about us.html">About US</a>
+    <a href="about us.html">About Us</a>
     <a href="product.html">Product</a>
-    <a href="contact.html">Contact</a>
+    <a href="contact us.html">Contact Us</a>
   </div>
 </header>
 
@@ -45,9 +51,9 @@
 <section class="section">
   <div class="wrap">
     <div class="about-grid">
-            <div class="about-media reveal">
-        <img src="images/about-warehouse.jpg.png" alt="L.G. Harris Ruaraka Warehouse">
-      
+      <div class="about-media reveal">
+        <img src="images/about-warehouse.png" alt="L.G. Harris Ruaraka Warehouse">
+        <span class="cap">Ruaraka</span>
       </div>
       <div class="reveal">
         <span class="eyebrow">Who We Are</span>
@@ -87,7 +93,7 @@
 <section class="cta-banner">
   <div class="wrap">
     <h2 class="display" style="letter-spacing:0.01em;">Want to see the full catalogue?</h2>
-    <a href="contact.html" class="btn btn-primary">Get In Touch</a>
+    <a href="contact us.html" class="btn btn-primary">Get In Touch</a>
   </div>
 </section>
 
@@ -101,14 +107,15 @@
       <div>
         <h5>Site</h5>
         <a href="index.html">Home</a>
-        <a href="about.html">About</a>
+        <a href="about us.html">About Us</a>
         <a href="product.html">Product</a>
-        <a href="contact.html">Contact</a>
+        <a href="contact us.html">Contact Us</a>
       </div>
       <div>
         <h5>Order Desk</h5>
         <a href="tel:+254722513650">0722 513 650</a>
         <a href="mailto:info@harrisea.net">info@harrisea.net</a>
+        <a href="catalogue.pdf" target="_blank" style="margin-top:10px; color:var(--red); font-weight:700;">Download Catalogue (PDF) →</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -116,12 +123,8 @@
       <span>TOUGH · DURABLE · EFFECTIVE</span>
     </div>
   </div>
-  <!-- Image Modal -->
-<div id="imageModal" class="modal">
-  <span class="modal-close">&times;</span>
-  <img class="modal-content" id="modalImg">
-</div>
 </footer>
+
 <script src="script.js"></script>
 </body>
 </html>
